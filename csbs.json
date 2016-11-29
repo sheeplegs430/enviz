@@ -1,7 +1,7 @@
 [
 {
-    id: "CS101",
-    name: "Abstract Data Types",
+    "id": "CS101",
+    "name": "Abstract Data Types",
     description: "Fucking hell",
     capacity: 200,
     prerequisites: []
