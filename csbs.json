@@ -3,14 +3,14 @@
     "id": "CS101",
     "name": "Abstract Data Types",
 
-    "description": "Fucking hell",
+    "description": "unpleasant",
     "capacity": 200,
     "prerequisites": []
 },
 {
     "id": "CS102",
     "name": "Abstract Data Types II",
-    "description": "Fucking hell reloaded",
+    "description": "unpleasant-er",
     "capacity": 100,
     "prerequisites": ["CS101"]
 }
