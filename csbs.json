@@ -4,35 +4,35 @@
         "id": "CE12/L",
         "name": "Computing Systems & Assembly Language",
         "description": "unpleasant",
-        "capacity": 200,
+        "capacity": 300,
         "prerequisites": []
     },
     {
         "id": "CE16",
         "name": "Discrete Math",
         "description": "unpleasant",
-        "capacity": 200,
+        "capacity": 250,
         "prerequisites": []
     },
     {
         "id": "AMS10",
         "name": "Engineering Math Methods",
         "description": "unpleasant",
-        "capacity": 200,
+        "capacity": 180,
         "prerequisites": []
     },
     {
         "id": "Math23A",
         "name": "Calculus III",
         "description": "unpleasant",
-        "capacity": 200,
+        "capacity": 280,
         "prerequisites": []
     },    
     {
         "id": "CE110",
         "name": "Computer Architecture",
         "description": "unpleasant",
-        "capacity": 200,
+        "capacity": 150,
         "prerequisites": ["CE12/L"]
     },    
     {
@@ -46,14 +46,14 @@
         "id": "CS104A",
         "name": "Compiler Design",
         "description": "unpleasant",
-        "capacity": 200,
+        "capacity": 140,
         "prerequisites": ["CE12/L"]
     },
     {
         "id": "CS111",
         "name": "Operating Systems",
         "description": "unpleasant",
-        "capacity": 200,
+        "capacity": 135,
         "prerequisites": ["CE110","CS101"]
     },    
     {
@@ -67,14 +67,14 @@
         "id": "CS112",
         "name": "Comparative Prog. Languages",
         "description": "unpleasant",
-        "capacity": 200,
+        "capacity": 140,
         "prerequisites": ["CS101"]
     },
     {
         "id": "CS130",
         "name": "Computational Models",
         "description": "unpleasant",
-        "capacity": 200,
+        "capacity": 120,
         "prerequisites": ["CS101"]
     }    
 
