@@ -1,4 +1,3 @@
-d3.json("csbs.json",(error, data)=>{
-   console.log(error);
-    console.log(data); 
+d3.json("csbs.json", function(data) {
+    console.log(data[0]); 
 });

@@ -2,15 +2,16 @@
 {
     "id": "CS101",
     "name": "Abstract Data Types",
-    description: "Fucking hell",
-    capacity: 200,
-    prerequisites: []
+
+    "description": "Fucking hell",
+    "capacity": 200,
+    "prerequisites": []
 },
 {
-    id: "CS102",
-    name: "Abstract Data Types II",
-    description: "Fucking hell reloaded",
-    capacity: 100,
-    prerequisites: ["CS101"]
+    "id": "CS102",
+    "name": "Abstract Data Types II",
+    "description": "Fucking hell reloaded",
+    "capacity": 100,
+    "prerequisites": ["CS101"]
 }
 ]
