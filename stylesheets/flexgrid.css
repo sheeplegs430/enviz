@@ -1,17 +1,18 @@
 /*Flexbox Grid*/
-.cols{
+.col{
     display: flex;
     flex-direction: column;
 }
-.rows{
+.row{
     display: flex;
     flex-direction: row;
-
 }
 
 .centered{
+    display: flex;
     justify-content: center;
 }
 .spread{
+    display: flex;
     justify-content: space-between;
 }

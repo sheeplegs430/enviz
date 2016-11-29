@@ -43,3 +43,9 @@ ul li{
     text-indent: -1em;
     padding-left: 1em;
 }
+
+#canvas{
+    display: flex;
+    width: auto;
+    height: 50%;
+}
