@@ -1,17 +1,81 @@
 [
-{
-    "id": "CS101",
-    "name": "Abstract Data Types",
+    
+    {
+        "id": "CE12/L",
+        "name": "Computing Systems & Assembly Language",
+        "description": "unpleasant",
+        "capacity": 200,
+        "prerequisites": []
+    },
+    {
+        "id": "CE16",
+        "name": "Discrete Math",
+        "description": "unpleasant",
+        "capacity": 200,
+        "prerequisites": []
+    },
+    {
+        "id": "AMS10",
+        "name": "Engineering Math Methods",
+        "description": "unpleasant",
+        "capacity": 200,
+        "prerequisites": []
+    },
+    {
+        "id": "Math23A",
+        "name": "Calculus III",
+        "description": "unpleasant",
+        "capacity": 200,
+        "prerequisites": []
+    },    
+    {
+        "id": "CE110",
+        "name": "Computer Architecture",
+        "description": "unpleasant",
+        "capacity": 200,
+        "prerequisites": ["CE12/L"]
+    },    
+    {
+        "id": "CS101",
+        "name": "Abstract Data Types",
+        "description": "unpleasant",
+        "capacity": 200,
+        "prerequisites": ["CE16","AMS10","Math23A"]
+    },
+    {
+        "id": "CS104A",
+        "name": "Compiler Design",
+        "description": "unpleasant",
+        "capacity": 200,
+        "prerequisites": ["CE12/L"]
+    },
+    {
+        "id": "CS111",
+        "name": "Operating Systems",
+        "description": "unpleasant",
+        "capacity": 200,
+        "prerequisites": ["CE110","CS101"]
+    },    
+    {
+        "id": "CS102",
+        "name": "Abstract Data Types II",
+        "description": "unpleasant-er",
+        "capacity": 100,
+        "prerequisites": ["CS101"]
+    },
+    {
+        "id": "CS112",
+        "name": "Comparative Prog. Languages",
+        "description": "unpleasant",
+        "capacity": 200,
+        "prerequisites": ["CS101"]
+    },
+    {
+        "id": "CS130",
+        "name": "Computational Models",
+        "description": "unpleasant",
+        "capacity": 200,
+        "prerequisites": ["CS101"]
+    }    
 
-    "description": "unpleasant",
-    "capacity": 200,
-    "prerequisites": []
-},
-{
-    "id": "CS102",
-    "name": "Abstract Data Types II",
-    "description": "unpleasant-er",
-    "capacity": 100,
-    "prerequisites": ["CS101"]
-}
 ]
