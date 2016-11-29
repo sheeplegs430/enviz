@@ -1,0 +1,16 @@
+File Format: JSON
+JSON:
+    +name
+    +description
+    +capacity
+    +enrollment
+    +prerequisite(s)
+    
+Force Spring Layout:
+    Svg Element -> Circle
+        +circles repel
+        +connections hold
+    Circle sqrt(radius) -> capacity
+    Circle color -> enrollment/capacity
+    Connections -> connect to prerequisites
+    Tooltip -> class description
