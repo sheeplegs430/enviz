@@ -2,7 +2,6 @@
 {
     "id": "CS101",
     "name": "Abstract Data Types",
-
     "description": "unpleasant",
     "capacity": 200,
     "prerequisites": []
