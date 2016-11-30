@@ -2,11 +2,6 @@ var svg = d3.select("svg"),
     width = +svg.attr("width"),
     height = +svg.attr("height");
 
-var sim = d3.forceSimulation()
-    .force("link", d3.forceLink())
-    .force("charge", d3.forceManyBody())
-    .force("center", d3.forceCenter(width/2, height/2));
-
 function draw(data){
     let node = svg.append("g")
         .attr("class", "nodes")
@@ -25,13 +20,12 @@ function draw(data){
 //        .enter().append("line")
 //        .attr("stroke-width", "1.5px")
 //        .attr("stroke", "cyan");
-    
-    node.append("title")
-        .text(d => d.name);
-    sim.nodes(data)
+
+    let sim = d3.forceSimulation(data)
+        .force("center", d3.forceCenter(width/2, height/2))
+        .force("collide", d3.forceCollide().radius(d=>Math.sqrt(d.capacity)/.2))
+        .force("charge", d3.forceManyBody().strength(30))
         .on("tick", ticked);
-//    sim.force("link")
-//        .links(data.prerequisites);
     
     function ticked(){
 //        link
