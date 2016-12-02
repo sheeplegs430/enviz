@@ -64,8 +64,6 @@ function draw(courses, links){
     let linkGroup = addLinks(links);
     let sim = addSim(courses, links);
     
-
-    
     sim.on("tick", ticked);
     function ticked(){
         linkGroup
