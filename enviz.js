@@ -3,6 +3,7 @@ var svg = d3.select("svg"),
     height = +svg.attr("height");
 
 function draw(courses, links){
+    let tooltip = d3.select("body").append("div").attr("class", "toolTip");
     let node = svg.append("g")
         .attr("class", "nodes")
         .selectAll("circle")
@@ -11,7 +12,17 @@ function draw(courses, links){
         .attr("r", d => Math.sqrt(d.capacity))
         .attr("fill", "red")
         .attr("stroke", "black")
-        .attr("stroke-width", "1.5px");
+        .attr("stroke-width", "1.5px")
+        .on("mousemove", function(d){
+            tooltip
+              .style("left", d3.event.pageX - 50 + "px")
+              .style("top", d3.event.pageY - 70 + "px")
+              .style("display", "inline-block")
+              .html(d.id);
+        })
+        .on("mouseout", function(d){ 
+            tooltip.style("display", "none");
+        });
     
     let link = svg.append("g")
         .attr("class", "links")
