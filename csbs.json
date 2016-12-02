@@ -1,5 +1,4 @@
 [
-    
     {
         "id": "CE12/L",
         "name": "Computing Systems & Assembly Language",
@@ -77,5 +76,4 @@
         "capacity": 120,
         "prerequisites": ["CS101"]
     }    
-
 ]
