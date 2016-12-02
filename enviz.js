@@ -72,7 +72,7 @@ function addSim(courses, links){
     return d3.forceSimulation(courses)
         .force("center", d3.forceCenter(width/2, height/2))
         .force("collide", d3.forceCollide()
-               .radius(d=>Math.sqrt(d.capacity)/.4))
+               .radius(d=>Math.sqrt(d.capacity)/.4 + 2))
         .force("charge", d3.forceManyBody()
                .strength(30))
         .force("link", d3.forceLink()
