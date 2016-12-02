@@ -4,8 +4,12 @@ let svg = d3.select("svg"),
 
 let tooltip = d3.select("body").append("div")
     .attr("class", "toolTip");
-
+/**
+* Reads in list of courses. For each course, create a link
+* between itself and its prerequisites.
+*/
 function genLinks(courses){
+    //TODO: cleaner code
     links = [];
     courses.forEach((course)=>{
         course.prerequisites.forEach((pre)=>{
@@ -16,12 +20,18 @@ function genLinks(courses){
     return links;
 }
 
+/**
+* Reads in list of courses. Generates an SVG group of circles.
+* Circle:
+*   Radius <-> capacity
+*   TODO: Fill <-> scale(enrollment/capacity)
+*/
 function addNodes(courses){
     return svg.append("g")
         .attr("class", "nodes")
         .selectAll("circle")
         .data(courses).enter().append("circle")
-            .attr("r", d => Math.sqrt(d.capacity))
+            .attr("r", d => Math.sqrt(d.capacity)/.4)
             .attr("fill", "red")
             .attr("stroke", "black")
             .attr("stroke-width", "1.5px")
@@ -38,6 +48,9 @@ function addNodes(courses){
             });;
 }
 
+/**
+* Reads in list of links. Generates an SVG group of lines.
+*/
 function addLinks(links){
     return svg.append("g")
         .attr("class", "links")
@@ -47,16 +60,24 @@ function addLinks(links){
             .attr("stroke-width", "1.5px");
 }
 
+/**
+* Reads in list of courses and links. Generates a D3 Simulation.
+* Forces:
+*   Center - TODO: remove once gravity and links implemented
+*   Collide - Radius <-> node radius
+*   Charge -   Strength <-> constant
+*   Link - Distance <-> TODO: node radius + constant
+*/
 function addSim(courses, links){
     return d3.forceSimulation(courses)
         .force("center", d3.forceCenter(width/2, height/2))
         .force("collide", d3.forceCollide()
-               .radius(d=>Math.sqrt(d.capacity)))
+               .radius(d=>Math.sqrt(d.capacity)/.4))
         .force("charge", d3.forceManyBody()
                .strength(30))
         .force("link", d3.forceLink()
                .id((d)=>d.id)
-                .links(links));
+               .links(links));
 }
 
 function draw(courses, links){
@@ -71,6 +92,7 @@ function draw(courses, links){
             .attr("y1", d => d.source.y)
             .attr("x2", d => d.target.x)
             .attr("y2", d => d.target.y);
+        
         nodeGroup    
             .attr("cx", d => d.x)
             .attr("cy", d => d.y);
