@@ -42,13 +42,6 @@
         "prerequisites": ["CE16","AMS10","Math23A"]
     },
     {
-        "id": "CS104A",
-        "name": "Compiler Design",
-        "description": "unpleasant",
-        "capacity": 140,
-        "prerequisites": ["CE12/L"]
-    },
-    {
         "id": "CS111",
         "name": "Operating Systems",
         "description": "unpleasant",
@@ -68,6 +61,13 @@
         "description": "unpleasant",
         "capacity": 140,
         "prerequisites": ["CS101"]
+    },
+    {
+        "id": "CS104A",
+        "name": "Compiler Design",
+        "description": "unpleasant",
+        "capacity": 140,
+        "prerequisites": ["CE12/L"]
     },
     {
         "id": "CS130",
