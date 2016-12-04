@@ -4,6 +4,23 @@ let svg = d3.select("svg"),
 
 let tooltip = d3.select("body").append("div")
     .attr("class", "toolTip");
+
+//Contains reusable definitions
+let defs = svg.append("defs");
+
+//Arrowheads for use with lines
+defs.append("marker")
+        .attr("id","arrow")
+        .attr("viewBox","0 -5 10 10")
+        .attr("refX", 10)
+        .attr("refY", 0)
+        .attr("markerWidth", 6)
+        .attr("markerHeight", 6)
+        .attr("orient", "auto")
+    .append("path")
+        .attr("d", "M0,-5L10,0L0,5")
+        .attr("class","arrowHead");
+
 /**
 * Reads in list of courses. For each course, create a link
 * between itself and its prerequisites.
@@ -13,7 +30,7 @@ function genLinks(courses){
     links = [];
     courses.forEach((course)=>{
         course.prerequisites.forEach((pre)=>{
-           links.push({"source": course.id, "target": pre});
+           links.push({"source": pre, "target": course.id});
         });
     });
 
@@ -40,7 +57,7 @@ function addNodes(courses){
                     .style("left", d3.event.pageX - 50 + "px")
                     .style("top", d3.event.pageY - 70 + "px")
                     .style("display", "inline-block")
-                    .html(d.id);
+                    .html(d.id); //TODO: add more info
             })
             .on("mouseout", function(d){ 
                 tooltip
@@ -57,7 +74,8 @@ function addLinks(links){
         .selectAll("line")
         .data(links).enter().append("line")
             .attr("stroke", "black")
-            .attr("stroke-width", "1.5px");
+            .attr("stroke-width", "1.5px")
+            .style("marker-end", "url(#arrow)");
 }
 
 /**
@@ -72,19 +90,19 @@ function addSim(courses, links){
     return d3.forceSimulation(courses)
         .force("center", d3.forceCenter(width/2, height/2))
         .force("collide", d3.forceCollide()
-               .radius(d=>Math.sqrt(d.capacity)/.4 + 2))
+               .radius(d=>Math.sqrt(d.capacity)/.4 + 4))
         .force("charge", d3.forceManyBody()
-               .strength(30))
+               .strength(40))
         .force("link", d3.forceLink()
                .id((d)=>d.id)
                .links(links));
 }
 
 function draw(courses, links){
+    let linkGroup = addLinks(links); //needs to be drawn first
     let nodeGroup = addNodes(courses);
-    let linkGroup = addLinks(links);
     let sim = addSim(courses, links);
-    
+
     sim.on("tick", ticked);
     function ticked(){
         linkGroup
