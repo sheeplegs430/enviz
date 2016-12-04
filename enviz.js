@@ -55,8 +55,8 @@ function addNodes(courses){
             .on("mousemove", function(d){
                 tooltip
                     .style("width", "180px")
-                    .style("left", d3.event.pageX)
-                    .style("top", d3.event.pageY)
+                    .style("top", (event.pageY - 10) + "px")
+                    .style("left", (event.pageX + 10) + "px")
                     .style("display", "inline-block")
                     .html(d.name + "<br/>" + "<br/>" + d.description); 
         
