@@ -2,7 +2,7 @@
     {
         "id": "CE12/L",
         "name": "Computing Systems & Assembly Language",
-        "description": "unpleasant",
+        "description": "Accelerated introduction to programming. \r Students write medium-sized programs. Topics include: functions; conditionals and loops; classes; event-driven programming and graphic user interfaces (GUIs); recursion; and arrays.",
         "capacity": 300,
         "prerequisites": []
     },

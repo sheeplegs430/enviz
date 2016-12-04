@@ -54,10 +54,11 @@ function addNodes(courses){
             .attr("stroke-width", "1.5px")
             .on("mousemove", function(d){
                 tooltip
-                    .style("left", d3.event.pageX - 50 + "px")
-                    .style("top", d3.event.pageY - 70 + "px")
+                    .style("width", "180px")
+                    .style("left", d3.event.pageX)
+                    .style("top", d3.event.pageY)
                     .style("display", "inline-block")
-                    .html(d.name + ' - ' + d.description); 
+                    .html(d.name + "<br/>" + "<br/>" + d.description); 
         
             }) 
                     
@@ -123,13 +124,14 @@ function draw(courses, links){
             .attr("x2", d => d.target.x)
             .attr("y2", d => d.target.y);
         
-        label
-             .attr("x", function(d)  { return d.x; })
-             .attr("y", function (d) {return d.y - 5; });
-
         nodeGroup    
             .attr("cx", d => d.x)
             .attr("cy", d => d.y);
+        
+         label
+            .attr("x", function(d)  { return d.x; })
+            .attr("y", function (d) {return d.y - 5; });
+
     }
 }
 
