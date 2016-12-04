@@ -21,7 +21,7 @@
         "prerequisites": []
     },
     {
-        "id": "Math23A",
+        "id": "MATH23A",
         "name": "Calculus III",
         "description": "unpleasant",
         "capacity": 280,
@@ -39,7 +39,7 @@
         "name": "Abstract Data Types",
         "description": "unpleasant",
         "capacity": 200,
-        "prerequisites": ["CE16","AMS10","Math23A"]
+        "prerequisites": ["CE16","AMS10","MATH23A"]
     },
     {
         "id": "CS111",

@@ -48,7 +48,7 @@ function addNodes(courses){
         .attr("class", "nodes")
         .selectAll("circle")
         .data(courses).enter().append("circle")
-            .attr("r", d => Math.sqrt(d.capacity)/.3)
+            .attr("r", d => Math.sqrt(d.capacity)/.4)
             .attr("fill", "red")
             .attr("stroke", "black")
             .attr("stroke-width", "1.5px")
@@ -57,12 +57,16 @@ function addNodes(courses){
                     .style("left", d3.event.pageX - 50 + "px")
                     .style("top", d3.event.pageY - 70 + "px")
                     .style("display", "inline-block")
-                    .html(d.id); //TODO: add more info
-            })
+                    .html(d.name + ' - ' + d.description); 
+        
+            }) 
+                    
             .on("mouseout", function(d){ 
                 tooltip
                     .style("display", "none");
             });;
+    
+
 }
 
 /**
@@ -102,6 +106,14 @@ function draw(courses, links){
     let linkGroup = addLinks(links); //needs to be drawn first
     let nodeGroup = addNodes(courses);
     let sim = addSim(courses, links);
+    
+    let label = svg.selectAll(".mytext")
+                    .data(courses).enter().append("text")
+                    .text(function (d) { return d.id; })
+                    .style("text-anchor", "middle")
+                    .style("fill", "#ffffff")
+                    .style("font-family", "Helvetica")
+                    .style("font-size", 12);
 
     sim.on("tick", ticked);
     function ticked(){
@@ -111,6 +123,10 @@ function draw(courses, links){
             .attr("x2", d => d.target.x)
             .attr("y2", d => d.target.y);
         
+        label
+             .attr("x", function(d)  { return d.x; })
+             .attr("y", function (d) {return d.y - 5; });
+
         nodeGroup    
             .attr("cx", d => d.x)
             .attr("cy", d => d.y);
