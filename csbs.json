@@ -2,7 +2,7 @@
     {
         "id": "CE12/L",
         "name": "Computing Systems & Assembly Language",
-        "description": "unpleasant",
+        "description": "Accelerated introduction to programming. \r Students write medium-sized programs. Topics include: functions; conditionals and loops; classes; event-driven programming and graphic user interfaces (GUIs); recursion; and arrays.",
         "capacity": 300,
         "prerequisites": []
     },
@@ -21,7 +21,7 @@
         "prerequisites": []
     },
     {
-        "id": "Math23A",
+        "id": "MATH23A",
         "name": "Calculus III",
         "description": "unpleasant",
         "capacity": 280,
@@ -39,14 +39,7 @@
         "name": "Abstract Data Types",
         "description": "unpleasant",
         "capacity": 200,
-        "prerequisites": ["CE16","AMS10","Math23A"]
-    },
-    {
-        "id": "CS104A",
-        "name": "Compiler Design",
-        "description": "unpleasant",
-        "capacity": 140,
-        "prerequisites": ["CE12/L"]
+        "prerequisites": ["CE16","AMS10","MATH23A"]
     },
     {
         "id": "CS111",
@@ -68,6 +61,13 @@
         "description": "unpleasant",
         "capacity": 140,
         "prerequisites": ["CS101"]
+    },
+    {
+        "id": "CS104A",
+        "name": "Compiler Design",
+        "description": "unpleasant",
+        "capacity": 140,
+        "prerequisites": ["CE12/L"]
     },
     {
         "id": "CS130",
