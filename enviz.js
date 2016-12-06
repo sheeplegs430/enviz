@@ -54,7 +54,7 @@ function addNodes(courses){
             .attr("stroke-width", "1.5px")
             .on("mousemove", function(d){
                 tooltip
-                    .style("width", "180px")
+                    .style("width", "350px")
                     .style("top", (event.pageY - 10) + "px")
                     .style("left", (event.pageX + 10) + "px")
                     .style("display", "inline-block")
