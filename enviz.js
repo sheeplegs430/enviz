@@ -106,7 +106,10 @@ function addLabels(courses){
             .selectAll("text")
             .data(courses).enter().append("text")
                 .attr("class", "nodeLabels")
-                .text(d => d.id);
+                .text(d => d.id)
+                .style("font-size", function(d) { 
+        return ((2 * (Math.sqrt(d.capacity)/.4 + 4) - 10) / this.getComputedTextLength() * 10) + "px"; 
+    });
 }
 
 function draw(courses, links){
