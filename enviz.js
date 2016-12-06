@@ -110,6 +110,8 @@ function addLabels(courses){
                 .style("text-anchor", "middle")
                 .style("fill", "#ffffff")
                 .style("font-family", "Helvetica")
+                .attr("stroke", "black")
+                .attr("stroke-width", ".6px")
                 .style("font-size", function(d) { return (2 * (Math.sqrt(d.capacity)/.4 + 4) - 10) / this.getComputedTextLength() * 10 + "px"; });
 }
 
