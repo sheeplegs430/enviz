@@ -9,70 +9,70 @@
     {
         "id": "CE16",
         "name": "Discrete Math",
-        "description": "unpleasant",
+        "description": "Introduction to applications of discrete mathematical systems. Topics include sets, functions, relations, graphs, trees, switching algebra, first order predicate calculus, mathematical induction, permutations, combinations, summation, and recurrences. Examples drawn from computer science and computer engineering.",
         "capacity": 250,
         "prerequisites": []
     },
     {
         "id": "AMS10",
         "name": "Engineering Math Methods",
-        "description": "unpleasant",
+        "description": "Applications-oriented course on complex numbers and linear algebra integrating Matlab as a computational support tool. Introduction to complex algebra. Vectors, bases, and transformations; matrix algebra; solutions of linear systems, inverses and determinants; eigenvalues and eigenvectors; and geometric transformations.",
         "capacity": 180,
         "prerequisites": []
     },
     {
         "id": "MATH23A",
         "name": "Calculus III",
-        "description": "unpleasant",
+        "description": "Vector Calculus is the calculus of several variables. It is an essential tool for science and engineering, and it combines vectors with the techniques of calculus. Whether one studies heat flow, electromagnetism, fluid motion, planetary motion, superconductivity, or even special relativity, concepts from vector calculus are essential.",
         "capacity": 280,
         "prerequisites": []
     },    
     {
         "id": "CE110",
         "name": "Computer Architecture",
-        "description": "unpleasant",
+        "description": "Introduction to computer architecture including examples of current approaches and the effect of technology and software. Computer performance evaluation, basic combinatorial and sequential digital components. Evolution of CPU microarchitecture from single-cycle to multi-cycle pipelines, with overview of super-scalar, multiple-issue and VLIW.",
         "capacity": 150,
         "prerequisites": ["CE12/L"]
     },    
     {
         "id": "CS101",
         "name": "Abstract Data Types",
-        "description": "unpleasant",
+        "description": "Studies basic algorithms and their relationships to common abstract data types. Covers the notions of abstract data types and the distinction between an abstract data type and an implementation of that data type. The complexity analysis of common algorithms using asymptotic (big 'O') notation is emphasized.",
         "capacity": 200,
         "prerequisites": ["CE16","AMS10","MATH23A"]
     },
     {
         "id": "CS111",
         "name": "Operating Systems",
-        "description": "unpleasant",
+        "description": "Fundamental principles of operating systems: process synchronization, deadlocks, memory management, resource allocation, scheduling, storage systems, and study of several operating systems.",
         "capacity": 135,
         "prerequisites": ["CE110","CS101"]
     },    
     {
         "id": "CS102",
         "name": "Abstract Data Types II",
-        "description": "unpleasant-er",
+        "description": "Methods for the systematic construction and mathematical analysis of algorithms. Order notation, the RAM model of computation, lower bounds, and recurrence relations are covered. The algorithm design techniques include divide-and-conquer, branch and bound, and dynamic programming. Applications to combinatorial, graph, string, and geometric algorithms. ",
         "capacity": 100,
         "prerequisites": ["CS101"]
     },
     {
         "id": "CS112",
         "name": "Comparative Prog. Languages",
-        "description": "unpleasant",
+        "description": "Covers several programming languages and compares styles, philosophy, and design principles. Principles underlying declarative, functional, and object-oriented programming styles are studied. Students write programs emphasizing each of these techniques.",
         "capacity": 140,
         "prerequisites": ["CS101"]
     },
     {
         "id": "CS104A",
         "name": "Compiler Design",
-        "description": "unpleasant",
+        "description": "An introduction to the basic techniques used in compiler design. Topics include compiler structure, symbol tables, regular expressions and languages, finite automata, lexical analysis, context-free languages, LL(1), recursive descent, LALR(1), and LR(1) parsing; and attribute grammars as a model of syntax-directed translation.",
         "capacity": 140,
-        "prerequisites": ["CE12/L"]
+        "prerequisites": ["CS101"]
     },
     {
         "id": "CS130",
         "name": "Computational Models",
-        "description": "unpleasant",
+        "description": "Various representations for regular languages, context-free grammars, normal forms, parsing, pushdown automata, pumping lemmas, Turing machines, the Church-Turing thesis.",
         "capacity": 120,
         "prerequisites": ["CS101"]
     }    
