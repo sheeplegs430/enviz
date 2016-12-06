@@ -60,14 +60,11 @@ function addNodes(courses){
                     .style("display", "inline-block")
                     .html(d.name + "<br/>" + "<br/>" + d.description); 
         
-            }) 
-                    
+            })     
             .on("mouseout", function(d){ 
                 tooltip
                     .style("display", "none");
-            });;
-    
-
+            });
 }
 
 /**
@@ -103,18 +100,22 @@ function addSim(courses, links){
                .links(links));
 }
 
+function addLabels(courses){
+    return  svg.append("g")
+            .attr("class", "labels")
+            .selectAll("text")
+            .data(courses).enter().append("text")
+                .attr("class", "nodeLabels")
+                .text(d => d.id);
+}
+
 function draw(courses, links){
-    let linkGroup = addLinks(links); //needs to be drawn first
+    //Drawn in order
+    let linkGroup = addLinks(links);
     let nodeGroup = addNodes(courses);
-    let sim = addSim(courses, links);
+    let labelGroup = addLabels(courses);
     
-    let label = svg.selectAll(".mytext")
-                    .data(courses).enter().append("text")
-                    .text(function (d) { return d.id; })
-                    .style("text-anchor", "middle")
-                    .style("fill", "#ffffff")
-                    .style("font-family", "Helvetica")
-                    .style("font-size", 12);
+    let sim = addSim(courses, links);
 
     sim.on("tick", ticked);
     function ticked(){
@@ -128,10 +129,9 @@ function draw(courses, links){
             .attr("cx", d => d.x)
             .attr("cy", d => d.y);
         
-         label
-            .attr("x", function(d)  { return d.x; })
-            .attr("y", function (d) {return d.y - 5; });
-
+        labelGroup
+            .attr("x", d => d.x)
+            .attr("y", d => d.y - 5);
     }
 }
 
