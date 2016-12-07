@@ -10,6 +10,7 @@ d3.schemeYlGnBu;
 
 let globalSim;
 
+//color scale for enrollment/capacity (ratio) 
 var linear = d3.scaleLinear()
   .domain([0,50,200])
   //.range(["rgb(46, 73, 123)", "rgb(71, 187, 94)", ]);
@@ -27,6 +28,26 @@ var legendLinear = d3.legendColor()
 
 svg.select(".legendLinear")
   .call(legendLinear);
+
+//circle scale for capacity of class
+var linearSize = d3.scaleLinear().domain([0,10]).range([10, 30]);
+
+svg.append("g")
+  .attr("class", "legendSize")
+  .attr("transform", "translate(20, 100)");
+
+circless = d3.symbol().type(d3.symbolCircle)()
+
+var legendSize = d3.legendSize()
+  .scale(linearSize)
+  .shape('circles')
+  .shapePadding(15)
+  .labelOffset(20)
+  .orient('horizontal');
+
+svg.select(".legendSize")
+  .call(legendSize);
+         
 
 //Contains reusable definitions
 let defs = svg.append("defs");
