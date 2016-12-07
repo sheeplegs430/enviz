@@ -36,6 +36,10 @@ ul li{
     padding-left: 1em;
 }
 
+p{
+    text-align: left;
+}
+
 #canvas{
     display: flex;
 }
