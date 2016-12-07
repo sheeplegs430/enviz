@@ -67,7 +67,7 @@ function genLinks(courses){
 *   TODO: Fill <-> scale(enrollment/capacity)
 */
 function initNodes(courses){
-    return svg.append("g")
+    let nodes = svg.append("g")
         .attr("class", "nodes")
         .selectAll("circle")
         .data(courses).enter().append("circle")
@@ -88,7 +88,18 @@ function initNodes(courses){
                 tooltip
                     .style("display", "none");
             });
-
+    
+    /*
+    * This is needed for the first initialization
+    * So that we "r" is public before enrollment data
+    * is available. Refactor when convenient this is
+    * so hacky.
+    */
+    nodes.data().forEach(node =>{
+        node["r"] = 40;
+    });
+    
+    return nodes;
 }
 
 /**
@@ -149,24 +160,25 @@ function updateData(en){
     svg.selectAll("circle").data().forEach((course)=>{
         course["enrollment"] = en[course["id"]]["enrollment"];
         course["capacity"] = en[course["id"]]["capacity"];
+        course["r"] = Math.sqrt(course["capacity"])/.4;
     });
 }
 
 function updateLabels(){
     svg.selectAll("text")
         .style("font-size", function(d){ 
-        return ((2 * (Math.sqrt(d.capacity)/.4) - 10) / this.getComputedTextLength() * 10) + "px";
+        return ((2 * d.r - 10) / this.getComputedTextLength() * 10) + "px";
     })
 }
 function updateRadius(){
     svg.selectAll("circle")
-        .attr("r", d => Math.sqrt(d.capacity)/.4);
+        .attr("r", d => d.r);
 }
 
 function updateCollision(){
     let padding = 10;
     globalSim.force("collide")
-        .radius(d => Math.sqrt(d.capacity)/.4 + padding);
+        .radius(d => d.r+ padding);
 }
 
 function updateColors() {
