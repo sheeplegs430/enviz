@@ -71,6 +71,15 @@ function addNodes(courses){
 
 }
 
+function changeColors() {
+    
+    let circles = svg.selectAll("circle");
+    
+    //circles.attr("fill", function (d) { return colors( (d.enrollment / d.capacity)  ); })
+    circles.attr("fill", d => colors(d.enrollment / d.capacity));
+    
+}
+
 /**
 * Reads in list of links. Generates an SVG group of lines.
 */
@@ -167,4 +176,6 @@ d3.json("enrollmentData/f16.json", (error, file)=>{
             return dict;
         }, {});
     updateEnrollment(courseEnrollment);
+    
+    changeColors();
 });
