@@ -1,0 +1,14 @@
+[
+    {"id": "CE12/L", "enrollment": 170, "capacity": 200},
+    {"id": "CE16", "enrollment": 135, "capacity": 150},
+    {"id": "AMS10", "enrollment": 160, "capacity": 150},
+    {"id": "MATH23A", "enrollment": 180, "capacity": 250},    
+    {"id": "CE110", "enrollment": 183, "capacity": 200},    
+    {"id": "CS101", "enrollment": 238, "capacity": 250},
+    {"id": "CS111", "enrollment": 160, "capacity": 150},    
+    {"id": "CS102", "enrollment": 76, "capacity": 100},
+    {"id": "CS112", "enrollment": 35, "capacity": 100},
+    {"id": "CS104A", "enrollment": 100, "capacity": 100},
+    {"id": "CS130", "enrollment": 10, "capacity": 100}    
+]
+
