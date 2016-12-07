@@ -10,6 +10,24 @@ d3.schemeYlGnBu;
 
 let globalSim;
 
+var linear = d3.scaleLinear()
+  .domain([0,50,200])
+  //.range(["rgb(46, 73, 123)", "rgb(71, 187, 94)", ]);
+  .range(["rgb(255, 255, 217)", "rgb(69, 180, 194)", "rgb(8, 29, 88)"]);
+
+svg.append("g")
+  .attr("class", "legendLinear")
+  .attr("transform", "translate(20,20)");
+
+var legendLinear = d3.legendColor()
+  .shapeWidth(50)
+  .cells(1, 50, 100, 150, 200)
+  .orient('horizontal')
+  .scale(linear);
+
+svg.select(".legendLinear")
+  .call(legendLinear);
+
 //Contains reusable definitions
 let defs = svg.append("defs");
 
@@ -107,7 +125,7 @@ function initLabels(courses){
 */
 function initSim(courses, links){
     return d3.forceSimulation(courses)
-        .force("center", d3.forceCenter(width/2, height/3))
+        .force("center", d3.forceCenter(width/2, height/2))
         .force("collide", d3.forceCollide()
                .radius(40))
         .force("charge", d3.forceManyBody()
