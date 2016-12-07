@@ -154,7 +154,7 @@ function initSizeLegend(){
 
     svg.append("g")
       .attr("class", "legendSize")
-      .attr("transform", "translate(20, 220)");
+      .attr("transform", "translate(20, 250)");
 
     let legendSize = d3.legendSize()
       .scale(linearSize)
@@ -242,6 +242,7 @@ d3.json("csbs.json", courses =>{
     let nodeGroup = initNodes(courses);
     let labelGroup = initLabels(courses);
     let colorLegendGroup = initColorLegend();
+    let sizeLegendGroup = initSizeLegend();
     
     globalSim = initSim(courses, links);
     globalSim.on("tick", ticked);
@@ -273,5 +274,5 @@ d3.json("csbs.json", courses =>{
             .attr("y", d => d.y - 5);
     }
     
-    updateEnrollment("enrollmentData/f16.json");
+    updateEnrollment("enrollmentData/s16.json");
 });
