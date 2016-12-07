@@ -7,16 +7,65 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.18.0/d3-legend.min.js"></script>
     </head>
     <body class="col">
-        <h1 class= "bubble">UCSC Computer Science B.S. Curriculum</h1>
-        <div class="bubble centered row">
+        <h1 id = "title" class = "bubble center">UCSC Computer Science B.S. Curriculum</h1>
+        <p class = "bubble"><em>Signing up for classes can be one of the most stressful experiences for a college student. Not knowing exactly what classes are available or taken at the time of signing can make the lives of students exponentially more difficult. Being able to see, in real time, what classes are available will immensely make the lives of students better.</em></p>
+        
+        <div class="centered row">
             <svg id="canvas" width="960" height="600"></svg>
         </div>
-        <div class = "centered"id="buttons">
+        
+        <div class = "bubble centered" id="buttons">
+            <p><b>Viewing: </b>default </p>
             <button type="button" onclick="updateEnrollment('enrollmentData/f16.json')">Fall 2016</button>
             <button type="button" onclick="updateEnrollment('enrollmentData/s16.json')">Spring 2016</button>
         </div>
-        <h2 class="centered">by Nathan Monahelis and Adrian Barrera-Velasquez</h2>
         <script src="enviz.js"></script>
+        
+    <section class="bubble">
+        <h2>Created By:</h2>
+        <p>Adrian Barrera-Velasquez, Nathan Monahelis</p>
+        <hr>
+        
+        <h2>Created For:</h2>
+        <p>CMPS 165, Data Programming for Visualization, Fall 2016</p>
+        <hr>
+        
+        <div class="row spread">
+            <h2>Files: </h2>                   
+            <h2>Data Sources:</h2>            
+            <h2>Code Sources:</h2>
+        </div>
+        <div class="row spread">
+            <div class="col">
+                <ul>
+                    <li>index.html</li>
+                    <li>imports.css </li>
+                    <li>README.md</li>
+                    <li>enviz.js</li>
+                    <li>csbs.json</li>
+                    <li>f16.json</li>
+                    <li>s16.json</li>
+                    <li>flexgrid.css</li>
+                    <li>reset.css</li>
+                    <li>style.css</li>
+                </ul>
+            </div>
+            <div class="col center">
+                <ul>
+                    <li>Created by the team</li>
+                </ul>
+            </div>
+            <div class="col left">
+                <ul>
+                    <li>
+                        <a href="http://d3-legend.susielu.com/">D3 Legends</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/d3/d3-scale-chromatic">D3 Chromatic</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
     </body>
 </html>
-
