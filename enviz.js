@@ -10,6 +10,7 @@ d3.schemeYlGnBu;
 
 let globalSim;
 
+//color scale for enrollment/capacity (ratio) 
 var linear = d3.scaleLinear()
   .domain([0,50,200])
   //.range(["rgb(46, 73, 123)", "rgb(71, 187, 94)", ]);
@@ -20,8 +21,10 @@ svg.append("g")
   .attr("transform", "translate(20,20)");
 
 var legendLinear = d3.legendColor()
-  .shapeWidth(50)
+  .shapeWidth(60)
   .cells(1, 50, 100, 150, 200)
+  .title("# of Students Enrolled")
+  .labels(["0", "50", "100", "150", "200+"])
   .orient('horizontal')
   .scale(linear);
 
@@ -185,6 +188,27 @@ function updateEnrollment(filepath){
         updateLabels();
         updateCollision();
         updateColors();
+        
+        //circle scale for capacity of class
+        var linearSize = d3.scaleLinear().domain([80, 200]).range([20, 33]);
+
+        svg.append("g")
+          .attr("class", "legendSize")
+          .attr("transform", "translate(20, 110)");
+
+        var legendSize = d3.legendSize()
+          .scale(linearSize)
+          .shape("circle")
+          .orient('horizontal')
+          .title("Max # of Students")
+          .labels(["80", "110", "140", "170", "200"])
+          .labelAlign("")
+          .shapePadding(10);
+  
+        svg.select(".legendSize")
+          .call(legendSize);
+        
+        
     });
 }
 
