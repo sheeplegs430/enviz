@@ -201,7 +201,7 @@ function updateEnrollment(filepath){
           .shape("circle")
           .orient('horizontal')
           .title("Max # of Students")
-          .labels(["100", "", "", "", "200"])
+          .labels(["80", "", "", "", "200"])
           .shapePadding(10);;
   
         svg.select(".legendSize")
