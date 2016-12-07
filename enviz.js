@@ -7,8 +7,8 @@ let tooltip = d3.select("body").append("div")
 
 let globalSim;
 
-let colors = d3.scaleSequential(d3.interpolateOrRd);
-d3.schemeOrRd;
+let colors = d3.scaleSequential(d3.interpolateYlGnBu);
+d3.schemeYlGnBu;
 
 let yellow = d3.interpolateOrRd(1);
 
