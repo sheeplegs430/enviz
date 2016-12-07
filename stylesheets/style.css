@@ -60,6 +60,7 @@ ul li{
 }
 
 .nodeLabels{
+    pointer-events: none;
     text-anchor: middle;
     fill: #ffffff;
     font-family: Helvetica;
