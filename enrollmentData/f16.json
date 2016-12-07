@@ -1,14 +1,14 @@
 [
-    {"id": "CE12/L", "enrollment": 150, "capacity": 200},
-    {"id": "CE16", "enrollment": 200, "capacity": 200},
-    {"id": "AMS10", "enrollment": 100, "capacity": 200},
-    {"id": "MATH23A", "enrollment": 200, "capacity": 200},    
-    {"id": "CE110", "enrollment": 50, "capacity": 200},    
-    {"id": "CS101", "enrollment": 200, "capacity": 200},
-    {"id": "CS111", "enrollment": 200, "capacity": 200},    
-    {"id": "CS102", "enrollment": 70, "capacity": 100},
+    {"id": "CE12/L", "enrollment": 210, "capacity": 200},
+    {"id": "CE16", "enrollment": 198, "capacity": 150},
+    {"id": "AMS10", "enrollment": 100, "capacity": 150},
+    {"id": "MATH23A", "enrollment": 240, "capacity": 250},    
+    {"id": "CE110", "enrollment": 90, "capacity": 200},    
+    {"id": "CS101", "enrollment": 300, "capacity": 250},
+    {"id": "CS111", "enrollment": 140, "capacity": 150},    
+    {"id": "CS102", "enrollment": 150, "capacity": 100},
     {"id": "CS112", "enrollment": 100, "capacity": 100},
-    {"id": "CS104A", "enrollment": 200, "capacity": 100},
+    {"id": "CS104A", "enrollment": 150, "capacity": 100},
     {"id": "CS130", "enrollment": 80, "capacity": 100}    
 ]
 

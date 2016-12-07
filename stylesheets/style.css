@@ -4,11 +4,8 @@
     margin: 0.1em;
     padding: 1em;
 
-    border-bottom-style: solid;
     border-width: 2px;
     border-radius: 5px;
-
-    box-shadow: 2px 1px black;
 }
 
 .left{
@@ -19,11 +16,6 @@
 }
 .right{
     text-align: right;
-}
-
-.title{
-    justify-content: center;
-    text-align: center;
 }
 
 body{
@@ -44,6 +36,10 @@ ul li{
     padding-left: 1em;
 }
 
+p{
+    text-align: left;
+}
+
 #canvas{
     display: flex;
 }
@@ -62,7 +58,7 @@ ul li{
 .nodeLabel{
     pointer-events: none;
     text-anchor: middle;
-    fill: #ffffff;
+    fill: "black";
     font-family: Helvetica;
     font-size: 12;
 }
