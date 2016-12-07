@@ -43,7 +43,7 @@ function genLinks(courses){
 *   Radius <-> capacity
 *   TODO: Fill <-> scale(enrollment/capacity)
 */
-function addNodes(courses){
+function initNodes(courses){
     return svg.append("g")
         .attr("class", "nodes")
         .selectAll("circle")
@@ -70,7 +70,7 @@ function addNodes(courses){
 /**
 * Reads in list of links. Generates an SVG group of lines.
 */
-function addLinks(links){
+function initLinks(links){
     return svg.append("g")
         .attr("class", "links")
         .selectAll("line")
@@ -80,6 +80,17 @@ function addLinks(links){
             .style("marker-end", "url(#arrow)");
 }
 
+function initLabels(courses){
+    return  svg.append("g")
+            .attr("class", "labels")
+            .selectAll("text")
+            .data(courses).enter().append("text")
+                .attr("class", "nodeLabels")
+                .text(d => d.id)
+                .style("font-size", function(d) { 
+        return ((2 * (Math.sqrt(d.capacity)/.4 + 4) - 10) / this.getComputedTextLength() * 10) + "px"; 
+    });
+}
 /**
 * Reads in list of courses and links. Generates a D3 Simulation.
 * Forces:
@@ -100,23 +111,11 @@ function addSim(courses, links){
                .links(links));
 }
 
-function addLabels(courses){
-    return  svg.append("g")
-            .attr("class", "labels")
-            .selectAll("text")
-            .data(courses).enter().append("text")
-                .attr("class", "nodeLabels")
-                .text(d => d.id)
-                .style("font-size", function(d) { 
-        return ((2 * (Math.sqrt(d.capacity)/.4 + 4) - 10) / this.getComputedTextLength() * 10) + "px"; 
-    });
-}
-
-function draw(courses, links){
+function setupGraph(courses, links){
     //Drawn in order
-    let linkGroup = addLinks(links);
-    let nodeGroup = addNodes(courses);
-    let labelGroup = addLabels(courses);
+    let linkGroup = initLinks(links);
+    let nodeGroup = initNodes(courses);
+    let labelGroup = initLabels(courses);
     
     let sim = addSim(courses, links);
     sim.on("tick", ticked);
@@ -137,6 +136,11 @@ function draw(courses, links){
     }
 }
 
+function updateRadius(){
+    let circles = svg.selectAll("circle");
+    circles.attr("r", d => Math.sqrt(d.capacity)/.4 + 4);
+}
+
 function updateEnrollment(en){
     svg.selectAll("circle").data().forEach((course)=>{
         course["enrollment"] = en[course["id"]]["enrollment"];
@@ -149,7 +153,7 @@ d3.json("csbs.json", (error, courses)=>{
         console.log(error);
     }else{
         links = genLinks(courses);
-        draw(courses, links);
+        setupGraph(courses, links);
     }
 });
 
@@ -162,4 +166,5 @@ d3.json("enrollmentData/f16.json", (error, file)=>{
             return dict;
         }, {});
     updateEnrollment(courseEnrollment);
+    updateRadius();
 });
