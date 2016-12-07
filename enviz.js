@@ -22,7 +22,7 @@ svg.append("g")
 
 var legendLinear = d3.legendColor()
   .shapeWidth(60)
-  .cells(1, 50, 100, 150, 200)
+  //.cells(1, 50, 100, 150, 200)
   .title("# of Students Enrolled")
   .labels(["0", "50", "100", "150", "200+"])
   .orient('horizontal')
@@ -206,7 +206,7 @@ function updateEnrollment(filepath){
 
         svg.append("g")
           .attr("class", "legendSize")
-          .attr("transform", "translate(20, 110)");
+          .attr("transform", "translate(20, 510)");
 
         var legendSize = d3.legendSize()
           .scale(linearSize)
@@ -214,7 +214,6 @@ function updateEnrollment(filepath){
           .orient('horizontal')
           .title("Max # of Students")
           .labels(["80", "110", "140", "170", "200"])
-          .labelAlign("")
           .shapePadding(10);
   
         svg.select(".legendSize")
