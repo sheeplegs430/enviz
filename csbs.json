@@ -4,6 +4,7 @@
         "name": "Computing Systems & Assembly Language",
         "description": "Accelerated introduction to programming. Students write medium-sized programs. Topics include: functions; conditionals and loops; classes; event-driven programming and graphic user interfaces (GUIs); recursion; and arrays.",
         "capacity": 300,
+        "enrollment": 280,
         "prerequisites": []
     },
     {
@@ -11,6 +12,7 @@
         "name": "Discrete Math",
         "description": "Introduction to applications of discrete mathematical systems. Topics include sets, functions, relations, graphs, trees, switching algebra, first order predicate calculus, mathematical induction, permutations, combinations, summation, and recurrences. Examples drawn from computer science and computer engineering.",
         "capacity": 250,
+        "enrollment": 243,
         "prerequisites": []
     },
     {
@@ -18,6 +20,7 @@
         "name": "Engineering Math Methods",
         "description": "Applications-oriented course on complex numbers and linear algebra integrating Matlab as a computational support tool. Introduction to complex algebra. Vectors, bases, and transformations; matrix algebra; solutions of linear systems, inverses and determinants; eigenvalues and eigenvectors; and geometric transformations.",
         "capacity": 180,
+        "enrollment": 190,
         "prerequisites": []
     },
     {
@@ -32,6 +35,7 @@
         "name": "Computer Architecture",
         "description": "Introduction to computer architecture including examples of current approaches and the effect of technology and software. Computer performance evaluation, basic combinatorial and sequential digital components. Evolution of CPU microarchitecture from single-cycle to multi-cycle pipelines, with overview of super-scalar, multiple-issue and VLIW.",
         "capacity": 150,
+        "enrollment": 94,
         "prerequisites": ["CE12/L"]
     },    
     {
@@ -39,6 +43,7 @@
         "name": "Abstract Data Types",
         "description": "Studies basic algorithms and their relationships to common abstract data types. Covers the notions of abstract data types and the distinction between an abstract data type and an implementation of that data type. The complexity analysis of common algorithms using asymptotic (big 'O') notation is emphasized.",
         "capacity": 200,
+        "enrollment": 200,
         "prerequisites": ["CE16","AMS10","MATH23A"]
     },
     {
@@ -46,6 +51,7 @@
         "name": "Operating Systems",
         "description": "Fundamental principles of operating systems: process synchronization, deadlocks, memory management, resource allocation, scheduling, storage systems, and study of several operating systems.",
         "capacity": 135,
+        "enrollment": 123,
         "prerequisites": ["CE110","CS101"]
     },    
     {
@@ -53,6 +59,7 @@
         "name": "Abstract Data Types II",
         "description": "Methods for the systematic construction and mathematical analysis of algorithms. Order notation, the RAM model of computation, lower bounds, and recurrence relations are covered. The algorithm design techniques include divide-and-conquer, branch and bound, and dynamic programming. Applications to combinatorial, graph, string, and geometric algorithms. ",
         "capacity": 100,
+        "enrollment": 98,
         "prerequisites": ["CS101"]
     },
     {
@@ -60,6 +67,7 @@
         "name": "Comparative Prog. Languages",
         "description": "Covers several programming languages and compares styles, philosophy, and design principles. Principles underlying declarative, functional, and object-oriented programming styles are studied. Students write programs emphasizing each of these techniques.",
         "capacity": 140,
+        "enrollment": 138,
         "prerequisites": ["CS101"]
     },
     {
@@ -67,6 +75,7 @@
         "name": "Compiler Design",
         "description": "An introduction to the basic techniques used in compiler design. Topics include compiler structure, symbol tables, regular expressions and languages, finite automata, lexical analysis, context-free languages, LL(1), recursive descent, LALR(1), and LR(1) parsing; and attribute grammars as a model of syntax-directed translation.",
         "capacity": 140,
+        "enrollment": 145,
         "prerequisites": ["CS101"]
     },
     {
@@ -74,6 +83,7 @@
         "name": "Computational Models",
         "description": "Various representations for regular languages, context-free grammars, normal forms, parsing, pushdown automata, pumping lemmas, Turing machines, the Church-Turing thesis.",
         "capacity": 120,
+        "enrollment": 191,
         "prerequisites": ["CS101"]
     }    
 ]

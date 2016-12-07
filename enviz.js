@@ -5,6 +5,9 @@ let svg = d3.select("svg"),
 let tooltip = d3.select("body").append("div")
     .attr("class", "toolTip");
 
+let colors = d3.scaleSequential(d3.interpolateYlOrRd);
+d3.schemeYlOrRd;
+
 //Contains reusable definitions
 let defs = svg.append("defs");
 
@@ -49,7 +52,8 @@ function addNodes(courses){
         .selectAll("circle")
         .data(courses).enter().append("circle")
             .attr("r", d => Math.sqrt(d.capacity)/.4)
-            .attr("fill", "red")
+            //.attr("fill", "color")
+            .style("fill", function (d) { return colors( (d.enrollment / d.capacity)  ); })
             .attr("stroke", "black")
             .attr("stroke-width", "1.5px")
             .on("mousemove", function(d){
@@ -65,6 +69,7 @@ function addNodes(courses){
                 tooltip
                     .style("display", "none");
             });
+
 }
 
 /**
@@ -90,7 +95,7 @@ function addLinks(links){
 */
 function addSim(courses, links){
     return d3.forceSimulation(courses)
-        .force("center", d3.forceCenter(width/2, height/2))
+        .force("center", d3.forceCenter(width/2, height/3))
         .force("collide", d3.forceCollide()
                .radius(d=>Math.sqrt(d.capacity)/.4 + 4))
         .force("charge", d3.forceManyBody()
@@ -117,6 +122,7 @@ function draw(courses, links){
     let linkGroup = addLinks(links);
     let nodeGroup = addNodes(courses);
     let labelGroup = addLabels(courses);
+    
     
     let sim = addSim(courses, links);
 
