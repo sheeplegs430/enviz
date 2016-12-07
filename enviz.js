@@ -5,31 +5,14 @@ let svg = d3.select("svg"),
 let tooltip = d3.select("body").append("div")
     .attr("class", "toolTip");
 
-let colors = d3.scaleSequential(d3.interpolateYlGnBu);
-d3.schemeYlGnBu;
-
 let globalSim;
 
-//color scale for enrollment/capacity (ratio) 
-var linear = d3.scaleLinear()
-  .domain([0,50,200])
-  //.range(["rgb(46, 73, 123)", "rgb(71, 187, 94)", ]);
-  .range(["rgb(255, 255, 217)", "rgb(69, 180, 194)", "rgb(8, 29, 88)"]);
+let colors = d3.scaleSequential(d3.interpolateOrRd);
+d3.schemeOrRd;
 
-svg.append("g")
-  .attr("class", "legendLinear")
-  .attr("transform", "translate(20,20)");
+let yellow = d3.interpolateOrRd(1);
 
-var legendLinear = d3.legendColor()
-  .shapeWidth(60)
-  //.cells(1, 50, 100, 150, 200)
-  .title("# of Students Enrolled")
-  .labels(["0", "50", "100", "150", "200+"])
-  .orient('horizontal')
-  .scale(linear);
-
-svg.select(".legendLinear")
-  .call(legendLinear);
+console.log(yellow);
 
 //Contains reusable definitions
 let defs = svg.append("defs");
@@ -74,6 +57,7 @@ function initNodes(courses){
         .attr("class", "nodes")
         .selectAll("circle")
         .data(courses).enter().append("circle")
+            .attr("class", "node")
             .attr("r", 40)
             .attr("fill", "red")
             .attr("stroke", "black")
@@ -114,7 +98,7 @@ function initLinks(links){
         .selectAll("line")
         .data(links).enter().append("line")
             .attr("stroke", "black")
-            .attr("stroke-width", "1.5px")
+            .attr("stroke-width", "2px")
             .style("marker-end", "url(#arrow)");
 }
 
@@ -123,7 +107,7 @@ function initLabels(courses){
             .attr("class", "labels")
             .selectAll("text")
             .data(courses).enter().append("text")
-                .attr("class", "nodeLabels")
+                .attr("class", "nodeLabel")
                 .text(d => d.id)
                 .style("font-size", function(d) { 
         return ((2 * (Math.sqrt(d.capacity)/.4) - 10) / this.getComputedTextLength() * 10) + "px"; 
@@ -160,7 +144,7 @@ function reduceEnrollment(file){
 }
 
 function updateData(en){
-    svg.selectAll("circle").data().forEach((course)=>{
+    svg.selectAll("circle.node").data().forEach((course)=>{
         course["enrollment"] = en[course["id"]]["enrollment"];
         course["capacity"] = en[course["id"]]["capacity"];
         course["r"] = Math.sqrt(course["capacity"])/.4;
@@ -168,13 +152,13 @@ function updateData(en){
 }
 
 function updateLabels(){
-    svg.selectAll("text")
+    svg.selectAll("text.nodeLabel")
         .style("font-size", function(d){ 
         return ((2 * d.r - 10) / this.getComputedTextLength() * 10) + "px";
     })
 }
 function updateRadius(){
-    svg.selectAll("circle")
+    svg.selectAll("circle.node")
         .attr("r", d => d.r);
 }
 
@@ -185,7 +169,7 @@ function updateCollision(){
 }
 
 function updateColors() {
-    svg.selectAll("circle")
+    svg.selectAll("circle.node")
         .attr("fill", d => colors(d.enrollment/d.capacity));   
 }
 
@@ -200,27 +184,51 @@ function updateEnrollment(filepath){
         updateLabels();
         updateCollision();
         updateColors();
-        
-        //circle scale for capacity of class
-        var linearSize = d3.scaleLinear().domain([80, 200]).range([20, 33]);
-
-        svg.append("g")
-          .attr("class", "legendSize")
-          .attr("transform", "translate(20, 510)");
-
-        var legendSize = d3.legendSize()
-          .scale(linearSize)
-          .shape("circle")
-          .orient('horizontal')
-          .title("Max # of Students")
-          .labels(["80", "110", "140", "170", "200"])
-          .shapePadding(10);
-  
-        svg.select(".legendSize")
-          .call(legendSize);
-        
-        
     });
+}
+
+function initLegend(){    
+    //color scale for enrollment/capacity (ratio) 
+    let linear = d3.scaleLinear()
+        .domain([0,50,200])
+        .range(["rgb(255, 247, 236)", "rgb(250, 142, 93)", "rgb(127, 0, 0)"]);
+
+    svg.append("g")
+        .attr("class", "legendLinear")
+        .attr("transform", "translate(20,20)");
+
+    let legendLinear = d3.legendColor()
+        .shapeWidth(60)
+        .cells(1, 50, 100, 150, 200)
+        .title("# of Students Enrolled")
+        .labels(["0", "50", "100", "150", "200+"])
+        .orient('horizontal')
+        .scale(linear);
+
+    svg.select(".legendLinear")
+        .call(legendLinear);
+    
+    //circle scale for capacity of class
+    let linearSize = d3.scaleLinear()
+        .domain([80, 200])
+        .range([20, 33]);
+
+    svg.append("g")
+      .attr("class", "legendSize")
+      .attr("transform", "translate(20, 220)");
+
+    let legendSize = d3.legendSize()
+      .scale(linearSize)
+      .shape("circle")
+      .orient('vertical')
+      .title("Max # of Students")
+      .labels(["80", "110", "140", "170", "200"])
+      .labelAlign("")
+      .shapePadding(0);
+
+    svg.select(".legendSize")
+      .call(legendSize);
+
 }
 
 d3.json("csbs.json", courses =>{
@@ -229,6 +237,7 @@ d3.json("csbs.json", courses =>{
     let linkGroup = initLinks(links);
     let nodeGroup = initNodes(courses);
     let labelGroup = initLabels(courses);
+    initLegend();
     
     globalSim = initSim(courses, links);
     globalSim.on("tick", ticked);
