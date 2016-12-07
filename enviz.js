@@ -5,8 +5,8 @@ let svg = d3.select("svg"),
 let tooltip = d3.select("body").append("div")
     .attr("class", "toolTip");
 
-let colors = d3.scaleSequential(d3.interpolateYlOrRd);
-d3.schemeYlOrRd;
+let colors = d3.scaleSequential(d3.interpolateYlGnBu);
+d3.schemeYlGnBu;
 
 //Contains reusable definitions
 let defs = svg.append("defs");
@@ -75,7 +75,6 @@ function changeColors() {
     
     let circles = svg.selectAll("circle");
     
-    //circles.attr("fill", function (d) { return colors( (d.enrollment / d.capacity)  ); })
     circles.attr("fill", d => colors(d.enrollment / d.capacity));
     
 }
