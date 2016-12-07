@@ -8,6 +8,8 @@ let tooltip = d3.select("body").append("div")
 let colors = d3.scaleSequential(d3.interpolateYlGnBu);
 d3.schemeYlGnBu;
 
+let globalSim;
+
 //Contains reusable definitions
 let defs = svg.append("defs");
 
@@ -71,15 +73,6 @@ function initNodes(courses){
 
 }
 
-function changeColors() {
-    
-    let circles = svg.selectAll("circle");
-    
-    //circles.attr("fill", function (d) { return colors( (d.enrollment / d.capacity)  ); })
-    circles.attr("fill", d => colors(d.enrollment / d.capacity));
-    
-}
-
 /**
 * Reads in list of links. Generates an SVG group of lines.
 */
@@ -101,7 +94,7 @@ function initLabels(courses){
                 .attr("class", "nodeLabels")
                 .text(d => d.id)
                 .style("font-size", function(d) { 
-        return ((2 * (Math.sqrt(d.capacity)/.4 + 4) - 10) / this.getComputedTextLength() * 10) + "px"; 
+        return ((2 * (Math.sqrt(d.capacity)/.4) - 10) / this.getComputedTextLength() * 10) + "px"; 
     });
 }
 /**
@@ -112,7 +105,7 @@ function initLabels(courses){
 *   Charge -   Strength <-> constant
 *   Link - Distance <-> TODO: node radius + constant
 */
-function addSim(courses, links){
+function initSim(courses, links){
     return d3.forceSimulation(courses)
         .force("center", d3.forceCenter(width/2, height/3))
         .force("collide", d3.forceCollide()
@@ -124,62 +117,83 @@ function addSim(courses, links){
                .links(links));
 }
 
-function setupGraph(courses, links){
-    //Drawn in order
-    let linkGroup = initLinks(links);
-    let nodeGroup = initNodes(courses);
-    let labelGroup = initLabels(courses);
-    
-    
-    let sim = addSim(courses, links);
-    sim.on("tick", ticked);
-    function ticked(){
-        linkGroup
-            .attr("x1", d => d.source.x)
-            .attr("y1", d => d.source.y)
-            .attr("x2", d => d.target.x)
-            .attr("y2", d => d.target.y);
-        
-        nodeGroup    
-            .attr("cx", d => d.x)
-            .attr("cy", d => d.y);
-        
-        labelGroup
-            .attr("x", d => d.x)
-            .attr("y", d => d.y - 5);
-    }
+function reduceEnrollment(file){
+    return file.reduce((dict, course)=>{
+        dict[course.id] = {
+            "enrollment": course.enrollment,
+            "capacity": course.capacity
+        };
+        return dict;
+    }, {});
 }
 
-function updateRadius(){
-    let circles = svg.selectAll("circle");
-    circles.attr("r", d => Math.sqrt(d.capacity)/.4 + 4);
-}
-
-function updateEnrollment(en){
+function updateData(en){
     svg.selectAll("circle").data().forEach((course)=>{
         course["enrollment"] = en[course["id"]]["enrollment"];
         course["capacity"] = en[course["id"]]["capacity"];
     });
 }
 
-d3.json("csbs.json", (error, courses)=>{
-    if(error){
-        console.log(error);
-    }else{
-        links = genLinks(courses);
-        setupGraph(courses, links);
-    }
-});
+function updateLabels(){
+    svg.selectAll("text")
+        .style("font-size", function(d){ 
+        return ((2 * (Math.sqrt(d.capacity)/.4) - 10) / this.getComputedTextLength() * 10) + "px";
+    })
+}
+function updateRadius(){
+    svg.selectAll("circle")
+        .attr("r", d => Math.sqrt(d.capacity)/.4);
+}
 
-d3.json("enrollmentData/f16.json", (error, file)=>{
-    let courseEnrollment = 
-        file.reduce((dict, course)=>{
-            dict[course.id] = 
-                {"enrollment": course.enrollment,
-                 "capacity": course.capacity};
-            return dict;
-        }, {});
-    updateEnrollment(courseEnrollment);
-    updateRadius();
-    changeColors();
+function updateCollision(){
+    let padding = 10;
+    globalSim.force("collide")
+        .radius(d => Math.sqrt(d.capacity)/.4 + padding);
+}
+
+function updateColors() {
+    svg.selectAll("circle")
+        .attr("fill", d => colors(d.enrollment/d.capacity));   
+}
+
+/**
+* Loads in a new enrollment file and updates the visualization
+*/
+function updateEnrollment(filepath){
+    d3.json(filepath, enrollment =>{
+        let courseEnrollment = reduceEnrollment(enrollment)
+        updateData(courseEnrollment);
+        updateRadius();
+        updateLabels();
+        updateCollision();
+        updateColors();
+    });
+}
+
+d3.json("csbs.json", courses =>{
+    let links = genLinks(courses);
+    
+    let linkGroup = initLinks(links);
+    let nodeGroup = initNodes(courses);
+    let labelGroup = initLabels(courses);
+    
+    globalSim = initSim(courses, links);
+    globalSim.on("tick", ticked);
+    function ticked(){
+        linkGroup
+            .attr("x1", d => d.source.x)
+            .attr("y1", d => d.source.y)
+            .attr("x2", d => d.target.x)
+            .attr("y2", d => d.target.y);
+
+        nodeGroup    
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y);
+
+        labelGroup
+            .attr("x", d => d.x)
+            .attr("y", d => d.y - 5);
+    }
+    
+    updateEnrollment("enrollmentData/f16.json");
 });
