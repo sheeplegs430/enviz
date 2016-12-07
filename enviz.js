@@ -8,8 +8,9 @@ let tooltip = d3.select("body").append("div")
 //Defined globally so it can be updated
 let globalSim;
 
-let colors = d3.scaleSequential(d3.interpolateYlGnBu);
-d3.schemeYlGnBu;
+let greenRedLin = d3.scaleLinear()
+    .domain([0,1])
+    .range(["green","red"]);
 
 //Contains reusable definitions
 let defs = svg.append("defs");
@@ -65,7 +66,9 @@ function initNodes(courses){
                     .style("top", (event.pageY - 10) + "px")
                     .style("left", (event.pageX + 10) + "px")
                     .style("display", "inline-block")
-                    .html(d.name + "<br/>" + "<br/>" + d.description); 
+                    .html("<h1>" + d.name + "</h1>" +
+                          "<hr/>" + 
+                          "<p>"+ d.description + "</p>"); 
         
             })     
             .on("mouseout", function(d){ 
@@ -118,6 +121,49 @@ function initLabels(courses){
 *   Charge -   Strength <-> constant
 *   Link - Distance <-> TODO: node radius + constant
 */
+
+function initColorLegend(){    
+    let colorLegendGroup = svg.append("g")
+        .attr("class", "colorLegend")
+        .attr("transform", "translate(20,20)");
+
+    let colorLegend = d3.legendColor()
+        .shapeWidth(60)
+        .cells(0, .25, .5, .75, 1)
+        .title("Percentage of Class Full")
+        .labels(["0%", "25%", "50%", "75%", "100%"])
+        .orient('horizontal')
+        .scale(greenRedLin);
+
+    svg.select(".colorLegend")
+        .call(colorLegend);
+    
+    return colorLegendGroup;
+}
+
+function initSizeLegend(){
+    //circle scale for capacity of class
+    let linearSize = d3.scaleLinear()
+        .domain([80, 200])
+        .range([20, 33]);
+
+    svg.append("g")
+      .attr("class", "legendSize")
+      .attr("transform", "translate(20, 220)");
+
+    let legendSize = d3.legendSize()
+      .scale(linearSize)
+      .shape("circle")
+      .orient('vertical')
+      .title("Number of Seats Available")
+      .labels(["80", "110", "140", "170", "200"])
+      .labelAlign("")
+      .shapePadding(0);
+
+    svg.select(".legendSize")
+      .call(legendSize);
+}
+
 function initSim(courses, links){
     return d3.forceSimulation(courses)
         .force("center", d3.forceCenter(width/2, height/2))
@@ -130,48 +176,6 @@ function initSim(courses, links){
                .links(links));
 }
 
-function initLegend(){    
-    //color scale for enrollment/capacity (ratio) 
-    let linear = d3.scaleLinear()
-        .domain([0,50,200])
-        .range(["rgb(255, 255, 217)", "rgb(69, 180, 194)", "rgb(8, 29, 88)"]);
-
-    svg.append("g")
-        .attr("class", "legendLinear")
-        .attr("transform", "translate(20,20)");
-
-    let legendLinear = d3.legendColor()
-        .shapeWidth(60)
-        .cells(1, 50, 100, 150, 200)
-        .title("# of Students Enrolled")
-        .labels(["0", "50", "100", "150", "200+"])
-        .orient('horizontal')
-        .scale(linear);
-
-    svg.select(".legendLinear")
-        .call(legendLinear);
-    
-    //circle scale for capacity of class
-    let linearSize = d3.scaleLinear()
-        .domain([80, 200])
-        .range([20, 33]);
-
-    svg.append("g")
-      .attr("class", "legendSize")
-      .attr("transform", "translate(20, 110)");
-
-    let legendSize = d3.legendSize()
-      .scale(linearSize)
-      .shape("circle")
-      .orient('horizontal')
-      .title("Max # of Students")
-      .labels(["80", "110", "140", "170", "200"])
-      .labelAlign("")
-      .shapePadding(10);
-
-    svg.select(".legendSize")
-      .call(legendSize);
-}
 function reduceEnrollment(file){
     return file.reduce((dict, course)=>{
         dict[course.id] = {
@@ -204,12 +208,12 @@ function updateRadius(){
 function updateCollision(){
     let padding = 10;
     globalSim.force("collide")
-        .radius(d => d.r+ padding);
+        .radius(d => d.r + padding);
 }
 
 function updateColors() {
     svg.selectAll("circle.node")
-        .attr("fill", d => colors(d.enrollment/d.capacity));   
+        .attr("fill", d => greenRedLin(d.enrollment/d.capacity));   
 }
 
 /**
@@ -226,15 +230,13 @@ function updateEnrollment(filepath){
     });
 }
 
-
-
 d3.json("csbs.json", courses =>{
     let links = genLinks(courses);
     
     let linkGroup = initLinks(links);
     let nodeGroup = initNodes(courses);
     let labelGroup = initLabels(courses);
-    initLegend();
+    let colorLegendGroupd = initColorLegend();
     
     globalSim = initSim(courses, links);
     globalSim.on("tick", ticked);
