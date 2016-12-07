@@ -236,7 +236,7 @@ d3.json("csbs.json", courses =>{
     let linkGroup = initLinks(links);
     let nodeGroup = initNodes(courses);
     let labelGroup = initLabels(courses);
-    let colorLegendGroupd = initColorLegend();
+    let colorLegendGroup = initColorLegend();
     
     globalSim = initSim(courses, links);
     globalSim.on("tick", ticked);
