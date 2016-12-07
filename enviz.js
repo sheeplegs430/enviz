@@ -201,20 +201,8 @@ d3.json("csbs.json", courses =>{
         linkGroup
             .attr("x1", d => d.source.x)
             .attr("y1", d => d.source.y)
-            .attr("x2", d => {
-                let dCenterToCenter = Math.sqrt(Math.pow(d.target.x - d.source.x, 2) + Math.pow(d.target.y - d.source.y, 2));
-                let dCenterToRadius = dCenterToCenter - d.target.r;
-                let scale = dCenterToRadius / dCenterToCenter;
-                let dx = scale * (d.target.x - d.source.x);
-                return d.source.x + dx;
-            })
-            .attr("y2", d => {
-                let dCenterToCenter = Math.sqrt(Math.pow(d.target.x - d.source.x, 2) + Math.pow(d.target.y - d.source.y, 2));
-                let dCenterToRadius = dCenterToCenter - d.target.r;
-                let scale = dCenterToRadius / dCenterToCenter;
-                let dy = scale * (d.target.y - d.source.y);
-                return d.source.y + dy;
-            });
+            .attr("x2", d => d.target.x)
+            .attr("y2", d => d.target.y);
 
         nodeGroup    
             .attr("cx", d => d.x)
