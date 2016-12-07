@@ -153,7 +153,7 @@ d3.json("csbs.json", (error, courses)=>{
     }
 });
 
-d3.json("f16.json", (error, file)=>{
+d3.json("enrollmentData/f16.json", (error, file)=>{
     let courseEnrollment = 
         file.reduce((dict, course)=>{
             dict[course.id] = 
