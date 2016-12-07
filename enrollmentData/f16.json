@@ -7,7 +7,7 @@
     {"id": "CS101", "enrollment": 300, "capacity": 250},
     {"id": "CS111", "enrollment": 140, "capacity": 150},    
     {"id": "CS102", "enrollment": 150, "capacity": 100},
-    {"id": "CS112", "enrollment": 100, "capacity": 100},
+    {"id": "CS112", "enrollment": 50, "capacity": 100},
     {"id": "CS104A", "enrollment": 150, "capacity": 100},
     {"id": "CS130", "enrollment": 80, "capacity": 100}    
 ]

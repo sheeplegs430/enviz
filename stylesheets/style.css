@@ -58,7 +58,7 @@ p{
 .nodeLabel{
     pointer-events: none;
     text-anchor: middle;
-    fill: "black";
+    fill: white;
     font-family: Helvetica;
     font-size: 12;
 }
