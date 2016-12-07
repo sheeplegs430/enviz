@@ -200,8 +200,8 @@ function initLegend(){
     let legendLinear = d3.legendColor()
         .shapeWidth(60)
         .cells(1, 50, 100, 150, 200)
-        .title("# of Students Enrolled")
-        .labels(["0", "50", "100", "150", "200+"])
+        .title("Percentage of Class Full")
+        .labels(["0%", "25%", "50%", "75%", "100%"])
         .orient('horizontal')
         .scale(linear);
 
@@ -221,7 +221,7 @@ function initLegend(){
       .scale(linearSize)
       .shape("circle")
       .orient('vertical')
-      .title("Max # of Students")
+      .title("Number of Seats Available")
       .labels(["80", "110", "140", "170", "200"])
       .labelAlign("")
       .shapePadding(0);
