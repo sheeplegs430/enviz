@@ -12,8 +12,7 @@ let globalSim;
 //Portion of the class that is full (enrolled)
 let fullColor = "rgb(8, 48, 107)";
 //Portion of the class that is free (capacity - enrollment)
-let emptyColor = "#e74c3c";
-//let emptyColor = "grey";
+let emptyColor = "grey";
 
 let colorScale = d3.scalePow()
     .exponent(2.8)
@@ -137,29 +136,6 @@ function initColorLegend(){
     return colorLegendGroup;
 }
 
-function initSizeLegend(){
-    //circle scale for capacity of class
-    let linearSize = d3.scaleLinear()
-        .domain([80, 200])
-        .range([20, 33]);
-
-    svg.append("g")
-      .attr("class", "legendSize")
-      .attr("transform", "translate(20, 250)");
-
-    let legendSize = d3.legendSize()
-      .scale(linearSize)
-      .shape("circle")
-      .orient('vertical')
-      .title("Number of Seats Available")
-      .labels(["80", "110", "140", "170", "200"])
-      .labelAlign("")
-      .shapePadding(0);
-
-    svg.select(".legendSize")
-      .call(legendSize);
-}
-
 /**
 * Reads in list of courses and links. Generates a D3 Simulation.
 * Forces:
@@ -208,6 +184,26 @@ function updateLabels(){
             return ((2 * d.outerR - 10) / this.getComputedTextLength() * 10) + "px";
     })
 }
+function updateTips(){
+    svg.selectAll("circle.node")
+        .on("mousemove", function(d){
+            tooltip
+                .style("width", "350px")
+                .style("top", (event.pageY - 10) + "px")
+                .style("left", (event.pageX + 10) + "px")
+                .style("display", "inline-block")
+                .html("<h1>" + d.name + "</h1>" +
+                      "<hr/>" + 
+                      "<p>" + d.description + "</p>" +
+                      "<hr/>" +
+                      "<p>Enrolled: " + d.enrolled + "/" + d.capacity +
+                      "</p>"); 
+        })     
+        .on("mouseout", function(d){ 
+            tooltip
+                .style("display", "none");
+        });
+}
 function updateRadius(){
     svg.selectAll("circle.node")
         .attr("stroke-width", d => d.roomLeft)
@@ -230,6 +226,7 @@ function updateEnrollment(filepath){
         let courseEnrollment = reduceEnrollment(enrollment);
         updateData(courseEnrollment);
         updateGraph();
+        d3.select("div#buttons>p").html("<b>Viewing: </b>" + filepath);
     });
 }
 
@@ -238,6 +235,7 @@ function updateGraph(){
     updateLabels();
     updateCollision();
     updateColors();
+    updateTips();
 }
 
 d3.json("csbs.json", courses =>{
