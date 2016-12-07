@@ -59,7 +59,7 @@ ul li{
   text-align: center;
 }
 
-.nodeLabels{
+.nodeLabel{
     pointer-events: none;
     text-anchor: middle;
     fill: #ffffff;
