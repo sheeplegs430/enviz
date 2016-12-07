@@ -8,9 +8,11 @@ let tooltip = d3.select("body").append("div")
 //Defined globally so it can be updated
 let globalSim;
 
-let greenRedLin = d3.scaleLinear()
-    .domain([0,1])
-    .range(["green","red"]);
+let colorScale = d3.scalePow()
+    .exponent(0.8)
+    .clamp(true)
+    .domain([0,1.5])
+    .range(["yellow","red"]);
 
 //Contains reusable definitions
 let defs = svg.append("defs");
@@ -129,11 +131,11 @@ function initColorLegend(){
 
     let colorLegend = d3.legendColor()
         .shapeWidth(60)
-        .cells(0, .25, .5, .75, 1)
+        .cells([.5, .75, 1, 1.25, 1.5])
         .title("Percentage of Class Full")
-        .labels(["0%", "25%", "50%", "75%", "100%"])
+        .labels(["50%", "75%", "100%", "125%", "150%"])
         .orient('horizontal')
-        .scale(greenRedLin);
+        .scale(colorScale);
 
     svg.select(".colorLegend")
         .call(colorLegend);
@@ -213,7 +215,7 @@ function updateCollision(){
 
 function updateColors() {
     svg.selectAll("circle.node")
-        .attr("fill", d => greenRedLin(d.enrollment/d.capacity));   
+        .attr("fill", d => colorScale(d.enrollment/d.capacity));   
 }
 
 /**
