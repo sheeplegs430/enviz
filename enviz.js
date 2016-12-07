@@ -51,9 +51,8 @@ function addNodes(courses){
         .attr("class", "nodes")
         .selectAll("circle")
         .data(courses).enter().append("circle")
-            .attr("r", d => Math.sqrt(d.capacity)/.4)
-            //.attr("fill", "color")
-            .style("fill", function (d) { return colors( (d.enrollment / d.capacity)  ); })
+            .attr("r", 40)
+            .attr("fill", "red")
             .attr("stroke", "black")
             .attr("stroke-width", "1.5px")
             .on("mousemove", function(d){
@@ -97,7 +96,7 @@ function addSim(courses, links){
     return d3.forceSimulation(courses)
         .force("center", d3.forceCenter(width/2, height/3))
         .force("collide", d3.forceCollide()
-               .radius(d=>Math.sqrt(d.capacity)/.4 + 4))
+               .radius(40))
         .force("charge", d3.forceManyBody()
                .strength(40))
         .force("link", d3.forceLink()
@@ -125,7 +124,6 @@ function draw(courses, links){
     
     
     let sim = addSim(courses, links);
-
     sim.on("tick", ticked);
     function ticked(){
         linkGroup
@@ -144,6 +142,13 @@ function draw(courses, links){
     }
 }
 
+function updateEnrollment(en){
+    svg.selectAll("circle").data().forEach((course)=>{
+        course["enrollment"] = en[course["id"]]["enrollment"];
+        course["capacity"] = en[course["id"]]["capacity"];
+    });
+}
+
 d3.json("csbs.json", (error, courses)=>{
     if(error){
         console.log(error);
@@ -151,4 +156,15 @@ d3.json("csbs.json", (error, courses)=>{
         links = genLinks(courses);
         draw(courses, links);
     }
+});
+
+d3.json("enrollmentData/f16.json", (error, file)=>{
+    let courseEnrollment = 
+        file.reduce((dict, course)=>{
+            dict[course.id] = 
+                {"enrollment": course.enrollment,
+                 "capacity": course.capacity};
+            return dict;
+        }, {});
+    updateEnrollment(courseEnrollment);
 });
