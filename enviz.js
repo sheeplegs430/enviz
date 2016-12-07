@@ -5,6 +5,9 @@ let svg = d3.select("svg"),
 let tooltip = d3.select("body").append("div")
     .attr("class", "toolTip");
 
+let colors = d3.scaleSequential(d3.interpolateYlGnBu);
+d3.schemeYlGnBu;
+
 //Contains reusable definitions
 let defs = svg.append("defs");
 
@@ -65,6 +68,16 @@ function initNodes(courses){
                 tooltip
                     .style("display", "none");
             });
+
+}
+
+function changeColors() {
+    
+    let circles = svg.selectAll("circle");
+    
+    //circles.attr("fill", function (d) { return colors( (d.enrollment / d.capacity)  ); })
+    circles.attr("fill", d => colors(d.enrollment / d.capacity));
+    
 }
 
 /**
@@ -101,7 +114,7 @@ function initLabels(courses){
 */
 function addSim(courses, links){
     return d3.forceSimulation(courses)
-        .force("center", d3.forceCenter(width/2, height/2))
+        .force("center", d3.forceCenter(width/2, height/3))
         .force("collide", d3.forceCollide()
                .radius(40))
         .force("charge", d3.forceManyBody()
@@ -116,6 +129,7 @@ function setupGraph(courses, links){
     let linkGroup = initLinks(links);
     let nodeGroup = initNodes(courses);
     let labelGroup = initLabels(courses);
+    
     
     let sim = addSim(courses, links);
     sim.on("tick", ticked);
@@ -167,4 +181,5 @@ d3.json("enrollmentData/f16.json", (error, file)=>{
         }, {});
     updateEnrollment(courseEnrollment);
     updateRadius();
+    changeColors();
 });
