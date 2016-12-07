@@ -5,6 +5,7 @@ let svg = d3.select("svg"),
 let tooltip = d3.select("body").append("div")
     .attr("class", "toolTip");
 
+//Defined globally so it can be updated
 let globalSim;
 
 let colors = d3.scaleSequential(d3.interpolateYlGnBu);
@@ -129,6 +130,48 @@ function initSim(courses, links){
                .links(links));
 }
 
+function initLegend(){    
+    //color scale for enrollment/capacity (ratio) 
+    let linear = d3.scaleLinear()
+        .domain([0,50,200])
+        .range(["rgb(255, 255, 217)", "rgb(69, 180, 194)", "rgb(8, 29, 88)"]);
+
+    svg.append("g")
+        .attr("class", "legendLinear")
+        .attr("transform", "translate(20,20)");
+
+    let legendLinear = d3.legendColor()
+        .shapeWidth(60)
+        .cells(1, 50, 100, 150, 200)
+        .title("# of Students Enrolled")
+        .labels(["0", "50", "100", "150", "200+"])
+        .orient('horizontal')
+        .scale(linear);
+
+    svg.select(".legendLinear")
+        .call(legendLinear);
+    
+    //circle scale for capacity of class
+    let linearSize = d3.scaleLinear()
+        .domain([80, 200])
+        .range([20, 33]);
+
+    svg.append("g")
+      .attr("class", "legendSize")
+      .attr("transform", "translate(20, 110)");
+
+    let legendSize = d3.legendSize()
+      .scale(linearSize)
+      .shape("circle")
+      .orient('horizontal')
+      .title("Max # of Students")
+      .labels(["80", "110", "140", "170", "200"])
+      .labelAlign("")
+      .shapePadding(10);
+
+    svg.select(".legendSize")
+      .call(legendSize);
+}
 function reduceEnrollment(file){
     return file.reduce((dict, course)=>{
         dict[course.id] = {
@@ -183,48 +226,7 @@ function updateEnrollment(filepath){
     });
 }
 
-function initLegend(){    
-    //color scale for enrollment/capacity (ratio) 
-    let linear = d3.scaleLinear()
-        .domain([0,50,200])
-        .range(["rgb(255, 255, 217)", "rgb(69, 180, 194)", "rgb(8, 29, 88)"]);
 
-    svg.append("g")
-        .attr("class", "legendLinear")
-        .attr("transform", "translate(20,20)");
-
-    let legendLinear = d3.legendColor()
-        .shapeWidth(60)
-        .cells(1, 50, 100, 150, 200)
-        .title("# of Students Enrolled")
-        .labels(["0", "50", "100", "150", "200+"])
-        .orient('horizontal')
-        .scale(linear);
-
-    svg.select(".legendLinear")
-        .call(legendLinear);
-    
-    //circle scale for capacity of class
-    let linearSize = d3.scaleLinear()
-        .domain([80, 200])
-        .range([20, 33]);
-
-    svg.append("g")
-      .attr("class", "legendSize")
-      .attr("transform", "translate(20, 110)");
-
-    let legendSize = d3.legendSize()
-      .scale(linearSize)
-      .shape("circle")
-      .orient('horizontal')
-      .title("Max # of Students")
-      .labels(["80", "110", "140", "170", "200"])
-      .labelAlign("")
-      .shapePadding(10);
-
-    svg.select(".legendSize")
-      .call(legendSize);
-}
 
 d3.json("csbs.json", courses =>{
     let links = genLinks(courses);
